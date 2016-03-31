@@ -161,6 +161,10 @@ namespace Marvel_Future_Fight_Flair_Styler {
 			String CSS = ".flair.flair-" + usernameCSS + " {" + Environment.NewLine + "	!flairgroup(" + leftCharCSS + "," + centerCharCSS + "," + rightCharCSS + ");" + Environment.NewLine + "}";
 			String _LESS = Regex.Replace(CSS, @"(?:!flairgroup\((.+?),\s*(.+?),\s*(.+?)\);)", Callback);
 
+			if (loggedIn) {
+				subredditCSS = sub.Stylesheet.CSS;
+			}
+
 			if (subredditCSS == "") {
 				MessageBox.Show("Missing subreddit CSS! Please update!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
@@ -185,6 +189,7 @@ namespace Marvel_Future_Fight_Flair_Styler {
 			if (loggedIn) {
 				sub.Stylesheet.CSS = subredditCSS;
 				sub.Stylesheet.UpdateCSS("add flair " + username);
+				Clipboard.SetText(subredditCSS); // Temporary fix.
 				sub.SetUserFlair(username, usernameCSS, "");
 			} else {
 				// txtCSSOutput.Text = subredditCSS;
